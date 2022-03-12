@@ -5,20 +5,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t simonecar/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t simoncar/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true simonecar/react-test npm test
+  - docker run -e CI=true simoncar/react-test npm test
 
 after_success:
   - docker build -t simoncar/multi-client ./client
-  - docker build -t simonecar/multi-nginx ./nginx
-  - docker build -t simonecar/multi-server ./server
-  - docker build -t simonecar/multi-worker ./worker
+  - docker build -t simoncar/multi-nginx ./nginx
+  - docker build -t simoncar/multi-server ./server
+  - docker build -t simoncar/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push simonecar/multi-client
-  - docker push simonecar/multi-nginx
-  - docker push simonecar/multi-server
-  - docker push simonecar/multi-worker
+  - docker push simoncar/multi-client
+  - docker push simoncar/multi-nginx
+  - docker push simoncar/multi-server
+  - docker push simoncar/multi-worker
